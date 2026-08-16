@@ -1,4 +1,4 @@
- {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,68 +6,717 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f5f5f5;
+    background: #ffffff;
+    color: #2f2f2f;
+}
 
+
+/* =========================
+   APP
+========================= */
+
+.app {
     display: flex;
-    justify-content: center;
-    align-items: center;
-
     height: 100vh;
 }
 
-.container {
-    background: white;
 
-    width: 600px;
+/* =========================
+   SIDEBAR
+========================= */
 
-    padding: 30px;
+.sidebar {
+    width: 260px;
 
-    border-radius: 10px;
+    background: #f7f7f8;
 
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-right: 1px solid #e5e5e5;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 16px;
 }
 
-h1 {
-    margin-bottom: 10px;
-}
 
-p {
+/* LOGO */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-weight: bold;
+    font-size: 16px;
+
     margin-bottom: 20px;
 }
 
-textarea {
-    width: 100%;
+.logo-icon {
+    width: 32px;
+    height: 32px;
 
-    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    padding: 10px;
+    background: #111111;
 
-    resize: none;
+    color: white;
 
-    font-size: 16px;
+    border-radius: 8px;
+
+    font-size: 18px;
 }
 
-button {
+
+/* =========================
+   NOVA CONVERSA
+========================= */
+
+.new-chat {
     width: 100%;
 
-    padding: 12px;
+    padding: 11px;
 
-    margin-top: 15px;
+    border: 1px solid #d9d9d9;
+
+    border-radius: 8px;
+
+    background: white;
 
     cursor: pointer;
 
-    font-size: 16px;
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    transition: 0.2s;
 }
 
-#resposta {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #ccc;
+.new-chat:hover {
+    background: #eeeeee;
+}
 
-    min-height: 120px;
-    max-height: 250px;
+
+/* =========================
+   HISTÓRICO
+========================= */
+
+.historico {
+    margin-top: 25px;
+
+    flex: 1;
+}
+
+.historico-titulo {
+    font-size: 12px;
+
+    color: #777;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   PARTE INFERIOR DA SIDEBAR
+========================= */
+
+.sidebar-bottom {
+    border-top: 1px solid #e5e5e5;
+
+    padding-top: 15px;
+}
+
+.perfil {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.avatar {
+    width: 34px;
+    height: 34px;
+
+    background: #222222;
+
+    color: white;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+}
+
+.perfil strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.perfil small {
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   ÁREA PRINCIPAL DO CHAT
+========================= */
+
+.chat {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    background: #ffffff;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.chat-header {
+    height: 65px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 30px;
+}
+
+.chat-header h1 {
+    font-size: 16px;
+
+    margin-bottom: 3px;
+}
+
+.chat-header span {
+    font-size: 12px;
+
+    color: #777;
+}
+
+
+/* =========================
+   ÁREA DAS MENSAGENS
+========================= */
+
+.messages {
+    flex: 1;
 
     overflow-y: auto;
 
-    white-space: pre-wrap;
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+/* =========================
+   TELA INICIAL
+========================= */
+
+.welcome {
+    margin: auto;
+
+    max-width: 650px;
+
+    text-align: center;
+}
+
+.welcome-icon {
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 20px;
+
+    background: #111111;
+
+    color: white;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+
+.welcome h2 {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+.welcome p {
+    color: #777777;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   SUGESTÕES
+========================= */
+
+.sugestoes {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+.sugestao {
+    background: white;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+.sugestao:hover {
+    background: #f5f5f5;
+
+    border-color: #cccccc;
+}
+
+
+/* =========================
+   ÁREA DO INPUT
+========================= */
+
+.input-area {
+    padding: 15px 30px 20px;
+
+    background: #ffffff;
+}
+
+
+/* =========================
+   CAIXA DE MENSAGEM
+========================= */
+
+.input-container {
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 8px;
+
+    background: white;
+
+    border: 1px solid #d9d9d9;
+
+    border-radius: 18px;
+
+    padding: 10px 10px 10px 16px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.04);
+
+    transition:
+        border 0.2s,
+        box-shadow 0.2s;
+}
+
+
+/* EFEITO AO CLICAR NO INPUT */
+
+.input-container:focus-within {
+    border-color: #bdbdbd;
+
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   TEXTAREA
+========================= */
+
+#pergunta {
+    flex: 1;
+
+    border: none;
+
+    outline: none;
+
+    resize: none;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    padding: 8px 0;
+
+    background: transparent;
+
+    color: #2f2f2f;
+
+    max-height: 150px;
+}
+
+#pergunta::placeholder {
+    color: #999999;
+}
+
+
+/* =========================
+   BOTÃO ENVIAR
+========================= */
+
+#btnEnviar {
+    width: 36px;
+
+    height: 36px;
+
+    flex-shrink: 0;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #111111;
+
+    color: white;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+#btnEnviar:hover {
+    background: #333333;
+
+    transform: scale(1.03);
+}
+
+#btnEnviar:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================
+   AVISO
+========================= */
+
+.aviso {
+    text-align: center;
+
+    font-size: 11px;
+
+    color: #999999;
+
+    margin-top: 8px;
+}
+
+
+/* =========================
+   MENSAGENS
+========================= */
+
+.mensagem {
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: 0 auto 24px;
+
+    display: flex;
+
+    animation: aparecer 0.2s ease;
+}
+
+
+/* ANIMAÇÃO DAS MENSAGENS */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================
+   MENSAGEM DO USUÁRIO
+========================= */
+
+.mensagem.usuario {
+    justify-content: flex-end;
+}
+
+.mensagem.usuario .conteudo {
+    max-width: 70%;
+
+    background: #f4f4f4;
+
+    padding: 12px 17px;
+
+    border-radius: 18px;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    word-wrap: break-word;
+}
+
+
+/* =========================
+   MENSAGEM DA IA
+========================= */
+
+.mensagem.ia {
+    justify-content: flex-start;
+
+    align-items: flex-start;
+}
+
+.mensagem.ia .conteudo {
+    max-width: 85%;
+
+    padding: 5px 0;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #2f2f2f;
+
+    word-wrap: break-word;
+}
+
+
+/* =========================
+   BARRA DE ROLAGEM
+========================= */
+
+.messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background: #cccccc;
+
+    border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .chat-header {
+        padding: 0 15px;
+    }
+
+    .messages {
+        padding: 20px 15px;
+    }
+
+    .input-area {
+        padding: 10px 15px 15px;
+    }
+
+    .sugestoes {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome h2 {
+        font-size: 24px;
+    }
+
+    .mensagem.usuario .conteudo {
+        max-width: 85%;
+    }
+
+    .mensagem.ia .conteudo {
+        max-width: 95%;
+    }
+}/* =========================
+   AVATARES DAS MENSAGENS
+========================= */
+
+.mensagem {
+    gap: 12px;
+}
+
+
+/* Avatar */
+
+.avatar-mensagem {
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* Avatar da IA */
+
+.mensagem.ia .avatar-mensagem {
+    background: #111111;
+    color: white;
+}
+
+
+/* Avatar do usuário */
+
+.mensagem.usuario .avatar-mensagem {
+    background: #e5e5e5;
+    color: #333333;
+
+    order: 2;
+}
+
+
+/* Conteúdo do usuário */
+
+.mensagem.usuario .conteudo {
+    order: 1;
+}
+
+
+/* Conteúdo da IA */
+
+.mensagem.ia .conteudo {
+    order: 2;
+}
+/* =========================
+   HISTÓRICO DE CONVERSAS
+========================= */
+
+.item-conversa {
+    width: 100%;
+
+    padding: 10px;
+
+    margin-bottom: 4px;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    border: none;
+
+    color: #333333;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    overflow: hidden;
+
+    transition: 0.2s;
+}
+
+.item-conversa:hover {
+    background: #eaeaea;
+}
+
+.item-conversa .icone-conversa {
+    flex-shrink: 0;
+
+    font-size: 14px;
+}
+
+.item-conversa .titulo-conversa {
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
 }

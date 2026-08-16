@@ -12,25 +12,128 @@
 
 <body>
 
-    <div class="container">
+    <div class="app">
 
-        <h1>🤖 Mini Assistente IA</h1>
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
 
-        <p>Faça uma pergunta para a IA</p>
+            <div class="sidebar-top">
 
-        <textarea
-            id="pergunta"
-            placeholder="Digite sua pergunta..."></textarea>
+                <div class="logo">
+                    <div class="logo-icon">✦</div>
+                    <span>Mini Assistente</span>
+                </div>
 
-        <button id="btnEnviar">
-            Enviar Pergunta
-        </button>
+                <button id="novaConversa" class="new-chat">
+                    <span>＋</span>
+                    Nova conversa
+                </button>
 
-        <div id="resposta">
+            </div>
 
-        </div>
+            <div class="historico">
+
+                <p class="historico-titulo">Conversas</p>
+
+                <div id="listaConversas"></div>
+
+            </div>
+
+            <div class="sidebar-bottom">
+
+                <div class="perfil">
+                    <div class="avatar">IA</div>
+
+                    <div>
+                        <strong>Mini Assistente</strong>
+                        <small>Assistente IA</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ÁREA PRINCIPAL -->
+        <main class="chat">
+
+            <!-- CABEÇALHO -->
+            <header class="chat-header">
+
+                <div>
+                    <h1>Mini Assistente</h1>
+                    <span>Assistente com Inteligência Artificial</span>
+                </div>
+
+            </header>
+
+
+            <!-- MENSAGENS -->
+            <section id="chatMensagens" class="messages">
+
+                <!-- TELA INICIAL -->
+
+                <div id="telaInicial" class="welcome">
+
+                    <div class="welcome-icon">
+                        ✦
+                    </div>
+
+                    <h2>Como posso ajudar?</h2>
+
+                    <p>
+                        Faça uma pergunta e converse com seu assistente de IA.
+                    </p>
+
+                    <div class="sugestoes">
+
+                        <button class="sugestao">
+                            💡 Explique o que é JavaScript
+                        </button>
+
+                        <button class="sugestao">
+                            💻 O que é uma API?
+                        </button>
+
+                        <button class="sugestao">
+                            🚀 O que é Node.js?
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- CAMPO DE MENSAGEM -->
+            <div class="input-area">
+
+                <form id="formPergunta" class="input-container">
+
+                    <textarea
+                        id="pergunta"
+                        placeholder="Envie uma mensagem..."
+                        rows="1"
+                    ></textarea>
+
+                    <button id="btnEnviar" type="submit">
+                        ↑
+                    </button>
+
+                </form>
+
+                <p class="aviso">
+                    O Mini Assistente pode cometer erros. Verifique informações importantes.
+                </p>
+
+            </div>
+
+        </main>
 
     </div>
+
 
     <script src="script.js"></script>
 
