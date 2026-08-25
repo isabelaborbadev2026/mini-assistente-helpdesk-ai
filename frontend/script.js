@@ -2,9 +2,18 @@ const pergunta = document.getElementById("pergunta");
 const botao = document.getElementById("btnEnviar");
 const chatMensagens = document.getElementById("chatMensagens");
 const formPergunta = document.getElementById("formPergunta");
-const telaInicial = document.getElementById("telaInicial");
 const novaConversa = document.getElementById("novaConversa");
 const listaConversas = document.getElementById("listaConversas");
+
+
+// =========================
+// VERIFICAR ELEMENTOS
+// =========================
+
+console.log("pergunta:", pergunta);
+console.log("botao:", botao);
+console.log("chatMensagens:", chatMensagens);
+console.log("formPergunta:", formPergunta);
 
 
 // =========================
@@ -18,53 +27,39 @@ async function enviarPergunta(event) {
 
     event.preventDefault();
 
+    console.log("FORMULÁRIO FOI ENVIADO");
+
     const textoPergunta = pergunta.value.trim();
 
-
-    // Não envia pergunta vazia
+    console.log("Pergunta:", textoPergunta);
 
     if (textoPergunta === "") {
         return;
     }
 
-
-    // Esconde a tela inicial
+    const telaInicial =
+        document.getElementById("telaInicial");
 
     if (telaInicial) {
-        telaInicial.style.display = "none";
+        telaInicial.remove();
     }
-
-
-    // Mostra pergunta do usuário
 
     adicionarMensagem(
         textoPergunta,
         "usuario"
     );
 
-
-    // Adiciona ao histórico
-
     adicionarAoHistorico(
         textoPergunta
     );
-
-
-    // Limpa campo
 
     pergunta.value = "";
 
     pergunta.style.height = "auto";
 
-
-    // Desativa botão
-
     botao.disabled = true;
 
     botao.innerText = "…";
-
-
-    // Mostra "Pensando..."
 
     const mensagemPensando =
         adicionarMensagem(
@@ -75,19 +70,23 @@ async function enviarPergunta(event) {
 
     try {
 
-        // =========================
-        // CHAMADA PARA O BACKEND
-        // =========================
+        console.log(
+            "Enviando para o backend..."
+        );
+
+        const token = localStorage.getItem("token");
 
         const respostaApi =
             await fetch(
-                "http://localhost:3000/pergunta",
+                "http://localhost:3000/api/pergunta",
                 {
                     method: "POST",
 
                     headers: {
                         "Content-Type":
-                            "application/json"
+                            "application/json",
+                        "Authorization":
+                            `Bearer ${token}`
                     },
 
                     body: JSON.stringify({
@@ -97,53 +96,94 @@ async function enviarPergunta(event) {
                 }
             );
 
+        // =========================
+        // TOKEN EXPIRADO OU INVÁLIDO
+        // =========================
 
-        // Verifica erro
+        if (respostaApi.status === 401 || respostaApi.status === 403) {
+
+            localStorage.removeItem("token");
+
+            verificarLogin();
+
+            throw new Error("Sua sessão expirou. Faça login novamente.");
+
+        }
+
+        console.log(
+            "Status do servidor:",
+            respostaApi.status
+        );
 
         if (!respostaApi.ok) {
 
             throw new Error(
                 "Erro ao obter resposta do servidor."
             );
+
         }
-
-
-        // Converte resposta
 
         const dados =
             await respostaApi.json();
 
+        console.log(
+            "Resposta recebida:",
+            dados.resposta
+        );
 
-        // Mostra resposta da IA
+        if (!dados.resposta) {
 
-        mensagemPensando.innerText =
-            dados.resposta;
+            throw new Error(
+                "O servidor não retornou uma resposta."
+            );
+
+        }
+
+        if (
+            typeof marked !== "undefined"
+        ) {
+
+            mensagemPensando.innerHTML =
+                marked.parse(
+                    dados.resposta
+                );
+
+        } else {
+
+            mensagemPensando.innerText =
+                dados.resposta;
+
+        }
+
+        console.log(
+            "RESPOSTA COLOCADA NA TELA"
+        );
+
+        rolarParaBaixo();
 
 
     } catch (erro) {
 
-        console.error(erro);
-
+        console.error(
+            "ERRO NO FRONTEND:",
+            erro
+        );
 
         mensagemPensando.innerText =
-            "Erro ao conectar com o servidor. Tente novamente.";
+            erro.message || "Erro ao conectar com o servidor. Tente novamente.";
 
 
     } finally {
-
-        // Reativa botão
 
         botao.disabled = false;
 
         botao.innerText = "↑";
 
-
-        // Volta foco para o campo
-
         pergunta.focus();
-    }
-}
 
+    }
+
+}
 
 
 // =========================
@@ -158,25 +198,17 @@ function adicionarMensagem(
     const mensagem =
         document.createElement("div");
 
-
     mensagem.classList.add(
         "mensagem",
         tipo
     );
 
-
-    // =========================
-    // AVATAR
-    // =========================
-
     const avatar =
         document.createElement("div");
-
 
     avatar.classList.add(
         "avatar-mensagem"
     );
-
 
     if (tipo === "ia") {
 
@@ -185,29 +217,18 @@ function adicionarMensagem(
     } else {
 
         avatar.innerText = "Você";
+
     }
-
-
-    // =========================
-    // CONTEÚDO
-    // =========================
 
     const conteudo =
         document.createElement("div");
-
 
     conteudo.classList.add(
         "conteudo"
     );
 
-
     conteudo.innerText =
         texto;
-
-
-    // =========================
-    // MONTA MENSAGEM
-    // =========================
 
     mensagem.appendChild(
         avatar
@@ -217,23 +238,14 @@ function adicionarMensagem(
         conteudo
     );
 
-
     chatMensagens.appendChild(
         mensagem
     );
 
-
-    // =========================
-    // ROLAGEM AUTOMÁTICA
-    // =========================
-
-    chatMensagens.scrollTop =
-        chatMensagens.scrollHeight;
-
+    rolarParaBaixo();
 
     return conteudo;
 }
-
 
 
 // =========================
@@ -244,29 +256,19 @@ novaConversa.addEventListener(
     "click",
     function () {
 
-        // Limpa mensagens
-
         chatMensagens.innerHTML = "";
 
+        const tela =
+            document.createElement("div");
 
-        // Cria tela inicial
-
-        const novaTelaInicial =
-            document.createElement(
-                "div"
-            );
-
-
-        novaTelaInicial.id =
+        tela.id =
             "telaInicial";
 
-
-        novaTelaInicial.classList.add(
+        tela.classList.add(
             "welcome"
         );
 
-
-        novaTelaInicial.innerHTML = `
+        tela.innerHTML = `
 
             <div class="welcome-icon">
                 ✦
@@ -283,15 +285,24 @@ novaConversa.addEventListener(
 
             <div class="sugestoes">
 
-                <button class="sugestao">
+                <button
+                    class="sugestao"
+                    type="button"
+                >
                     💡 Explique o que é JavaScript
                 </button>
 
-                <button class="sugestao">
+                <button
+                    class="sugestao"
+                    type="button"
+                >
                     💻 O que é uma API?
                 </button>
 
-                <button class="sugestao">
+                <button
+                    class="sugestao"
+                    type="button"
+                >
                     🚀 O que é Node.js?
                 </button>
 
@@ -299,24 +310,19 @@ novaConversa.addEventListener(
 
         `;
 
-
         chatMensagens.appendChild(
-            novaTelaInicial
+            tela
         );
-
-
-        // Limpa campo
 
         pergunta.value = "";
 
         pergunta.style.height =
             "auto";
 
-
         pergunta.focus();
+
     }
 );
-
 
 
 // =========================
@@ -336,37 +342,29 @@ document.addEventListener(
             let texto =
                 event.target.innerText;
 
-
-            // Remove emojis
-
             texto = texto
                 .replace("💡 ", "")
                 .replace("💻 ", "")
                 .replace("🚀 ", "");
 
-
             pergunta.value =
                 texto;
 
-
             pergunta.focus();
-
-
-            // Ajusta textarea
 
             pergunta.style.height =
                 "auto";
-
 
             pergunta.style.height =
                 Math.min(
                     pergunta.scrollHeight,
                     150
                 ) + "px";
+
         }
+
     }
 );
-
 
 
 // =========================
@@ -384,12 +382,12 @@ pergunta.addEventListener(
 
             event.preventDefault();
 
-
             formPergunta.requestSubmit();
+
         }
+
     }
 );
-
 
 
 // =========================
@@ -400,26 +398,21 @@ pergunta.addEventListener(
     "input",
     function () {
 
-        // Reseta altura
-
         pergunta.style.height =
             "auto";
-
-
-        // Ajusta altura
 
         pergunta.style.height =
             Math.min(
                 pergunta.scrollHeight,
                 150
             ) + "px";
+
     }
 );
 
 
-
 // =========================
-// ADICIONAR AO HISTÓRICO
+// HISTÓRICO
 // =========================
 
 function adicionarAoHistorico(
@@ -427,70 +420,176 @@ function adicionarAoHistorico(
 ) {
 
     const item =
-        document.createElement(
-            "button"
-        );
+        document.createElement("button");
 
+    item.type = "button";
 
     item.classList.add(
         "item-conversa"
     );
 
-
-    // =========================
-    // ÍCONE
-    // =========================
-
     const icone =
-        document.createElement(
-            "span"
-        );
-
+        document.createElement("span");
 
     icone.classList.add(
         "icone-conversa"
     );
 
-
-    icone.innerText = "💬";
-
-
-    // =========================
-    // TÍTULO
-    // =========================
+    icone.innerText =
+        "💬";
 
     const titulo =
-        document.createElement(
-            "span"
-        );
-
+        document.createElement("span");
 
     titulo.classList.add(
         "titulo-conversa"
     );
 
-
     titulo.innerText =
         texto;
-
-
-    // =========================
-    // MONTA ITEM
-    // =========================
 
     item.appendChild(
         icone
     );
 
-
     item.appendChild(
         titulo
     );
 
-
-    // Coloca no início
-
     listaConversas.prepend(
         item
     );
+
 }
+
+
+// =========================
+// SCROLL
+// =========================
+
+function rolarParaBaixo() {
+
+    chatMensagens.scrollTo({
+
+        top:
+            chatMensagens.scrollHeight,
+
+        behavior:
+            "smooth"
+
+    });
+
+}
+
+
+// =========================
+// FUNÇÕES DE API DE AUTENTICAÇÃO
+// =========================
+
+async function fazerLogin(email, senha) {
+  const resp = await fetch('http://localhost:3000/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, senha })
+  });
+  const data = await resp.json();
+  if (resp.ok) {
+    localStorage.setItem('token', data.token);
+  }
+  return data;
+}
+
+
+// =========================
+// LOGIN E CADASTRO
+// =========================
+
+const telaLogin = document.getElementById("telaLogin");
+const telaCadastro = document.getElementById("telaCadastro");
+const appPrincipal = document.getElementById("appPrincipal");
+const formLogin = document.getElementById("formLogin");
+const formCadastro = document.getElementById("formCadastro");
+const loginErro = document.getElementById("loginErro");
+const cadastroErro = document.getElementById("cadastroErro");
+const btnSair = document.getElementById("btnSair");
+const linkCriarConta = document.getElementById("linkCriarConta");
+const linkVoltarLogin = document.getElementById("linkVoltarLogin");
+
+function verificarLogin() {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        telaLogin.style.display = "none";
+        telaCadastro.style.display = "none";
+        appPrincipal.style.display = "flex";
+    } else {
+        telaLogin.style.display = "flex";
+        telaCadastro.style.display = "none";
+        appPrincipal.style.display = "none";
+    }
+}
+
+formLogin.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const senha = document.getElementById("loginSenha").value.trim();
+
+    loginErro.innerText = "";
+
+    const resultado = await fazerLogin(email, senha);
+
+    if (resultado.token) {
+        verificarLogin();
+    } else {
+        loginErro.innerText = resultado.erro || "Erro ao fazer login.";
+    }
+});
+
+formCadastro.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("cadastroEmail").value.trim();
+    const senha = document.getElementById("cadastroSenha").value.trim();
+
+    cadastroErro.innerText = "";
+
+    const resp = await fetch("http://localhost:3000/api/auth/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha })
+    });
+
+    const dados = await resp.json();
+
+    if (resp.ok) {
+
+        const resultado = await fazerLogin(email, senha);
+
+        if (resultado.token) {
+            verificarLogin();
+        }
+
+    } else {
+        cadastroErro.innerText = dados.erro || "Erro ao cadastrar.";
+    }
+});
+
+linkCriarConta.addEventListener("click", function (event) {
+    event.preventDefault();
+    telaLogin.style.display = "none";
+    telaCadastro.style.display = "flex";
+});
+
+linkVoltarLogin.addEventListener("click", function (event) {
+    event.preventDefault();
+    telaCadastro.style.display = "none";
+    telaLogin.style.display = "flex";
+});
+
+btnSair.addEventListener("click", function () {
+    localStorage.removeItem("token");
+    verificarLogin();
+});
+
+verificarLogin();

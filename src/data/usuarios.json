@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "email": "isabelaborba388@gmail.com",
+    "senha": "$2b$10$Rp/3NpDYisUNZsgojyH0R.mmuTvdFWAPdY34Lkii1QVHvl9WhBqGa"
+  },
+  {
+    "id": 2,
+    "email": "teste@teste.com",
+    "senha": "$2b$10$gYUOilnW45QMlpGDhvsSVuNsgONSmnkm8EsUt6Kp.9mNGBtveSkuK"
+  }
+]

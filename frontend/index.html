@@ -1,141 +1,397 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mini Assistente IA</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <title>
+        Mini Assistente IA
+    </title>
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <div class="app">
 
-        <!-- MENU LATERAL -->
+    <!-- =========================
+    TELA DE LOGIN
+    ========================= -->
+
+    <div id="telaLogin" class="login-screen">
+
+        <form id="formLogin" class="login-box">
+
+            <div class="logo-icon">✦</div>
+
+            <h2>Entrar no Mini Assistente</h2>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Seu e-mail"
+                required
+            >
+
+            <input
+                type="password"
+                id="loginSenha"
+                placeholder="Sua senha"
+                required
+            >
+
+            <button type="submit">Entrar</button>
+
+            <p id="loginErro" class="login-erro"></p>
+
+            <p class="login-alternar">
+    Não tem conta? <a href="#" id="linkCriarConta">Criar conta</a>
+</p>
+
+        </form>
+
+    </div>
+
+    <!-- =========================
+TELA DE CADASTRO
+========================= -->
+
+<div id="telaCadastro" class="login-screen" style="display:none;">
+
+    <form id="formCadastro" class="login-box">
+
+        <div class="logo-icon">✦</div>
+
+        <h2>Criar conta</h2>
+
+        <input
+            type="email"
+            id="cadastroEmail"
+            placeholder="Seu e-mail"
+            required
+        >
+
+        <input
+            type="password"
+            id="cadastroSenha"
+            placeholder="Crie uma senha"
+            required
+        >
+
+        <button type="submit">Cadastrar</button>
+
+        <p id="cadastroErro" class="login-erro"></p>
+
+        <p class="login-alternar">
+            Já tem conta? <a href="#" id="linkVoltarLogin">Fazer login</a>
+        </p>
+
+    </form>
+
+</div>
+
+
+    <div class="app" id="appPrincipal" style="display:none;">
+
+
+        <!-- =========================
+        MENU LATERAL
+        ========================= -->
+
         <aside class="sidebar">
+
 
             <div class="sidebar-top">
 
+
+                <!-- LOGO -->
+
                 <div class="logo">
-                    <div class="logo-icon">✦</div>
-                    <span>Mini Assistente</span>
+
+                    <div class="logo-icon">
+                        ✦
+                    </div>
+
+                    <span>
+                        Mini Assistente
+                    </span>
+
                 </div>
 
-                <button id="novaConversa" class="new-chat">
-                    <span>＋</span>
+
+                <!-- NOVA CONVERSA -->
+
+                <button
+                    id="novaConversa"
+                    class="new-chat"
+                    type="button"
+                >
+
+                    <span>
+                        ＋
+                    </span>
+
                     Nova conversa
+
                 </button>
+
 
             </div>
 
+
+            <!-- =========================
+            HISTÓRICO
+            ========================= -->
+
             <div class="historico">
 
-                <p class="historico-titulo">Conversas</p>
+                <p class="historico-titulo">
+                    Conversas
+                </p>
+
 
                 <div id="listaConversas"></div>
 
             </div>
 
+
+            <!-- =========================
+            PERFIL
+            ========================= -->
+
             <div class="sidebar-bottom">
 
+
                 <div class="perfil">
-                    <div class="avatar">IA</div>
+
+
+                    <div class="avatar">
+                        IA
+                    </div>
+
 
                     <div>
-                        <strong>Mini Assistente</strong>
-                        <small>Assistente IA</small>
+
+                        <strong>
+                            Mini Assistente
+                        </strong>
+
+                        <small>
+                            Assistente IA
+                        </small>
+
                     </div>
+
+
                 </div>
 
+
+                <!-- SAIR -->
+
+                <button
+                    id="btnSair"
+                    type="button"
+                    class="btn-sair"
+                >
+                    Sair
+                </button>
+
+
             </div>
+
 
         </aside>
 
 
-        <!-- ÁREA PRINCIPAL -->
+        <!-- =========================
+        ÁREA PRINCIPAL
+        ========================= -->
+
         <main class="chat">
 
-            <!-- CABEÇALHO -->
+
+            <!-- =========================
+            CABEÇALHO
+            ========================= -->
+
             <header class="chat-header">
 
                 <div>
-                    <h1>Mini Assistente</h1>
-                    <span>Assistente com Inteligência Artificial</span>
+
+                    <h1>
+                        Mini Assistente
+                    </h1>
+
+                    <span>
+                        Assistente com Inteligência Artificial
+                    </span>
+
                 </div>
 
             </header>
 
 
-            <!-- MENSAGENS -->
-            <section id="chatMensagens" class="messages">
+            <!-- =========================
+            MENSAGENS
+            ========================= -->
 
-                <!-- TELA INICIAL -->
+            <section
+                id="chatMensagens"
+                class="messages"
+            >
 
-                <div id="telaInicial" class="welcome">
+
+                <!-- =========================
+                TELA INICIAL
+                ========================= -->
+
+                <div
+                    id="telaInicial"
+                    class="welcome"
+                >
+
 
                     <div class="welcome-icon">
                         ✦
                     </div>
 
-                    <h2>Como posso ajudar?</h2>
+
+                    <h2>
+                        Como posso ajudar?
+                    </h2>
+
 
                     <p>
-                        Faça uma pergunta e converse com seu assistente de IA.
+                        Faça uma pergunta e converse
+                        com seu assistente de IA.
                     </p>
+
+
+                    <!-- SUGESTÕES -->
 
                     <div class="sugestoes">
 
-                        <button class="sugestao">
+
+                        <button
+                            class="sugestao"
+                            type="button"
+                        >
+
                             💡 Explique o que é JavaScript
+
                         </button>
 
-                        <button class="sugestao">
+
+                        <button
+                            class="sugestao"
+                            type="button"
+                        >
+
                             💻 O que é uma API?
+
                         </button>
 
-                        <button class="sugestao">
+
+                        <button
+                            class="sugestao"
+                            type="button"
+                        >
+
                             🚀 O que é Node.js?
+
                         </button>
+
 
                     </div>
 
+
                 </div>
+
 
             </section>
 
 
-            <!-- CAMPO DE MENSAGEM -->
+            <!-- =========================
+            ÁREA DO INPUT
+            ========================= -->
+
             <div class="input-area">
 
-                <form id="formPergunta" class="input-container">
+
+                <form
+                    id="formPergunta"
+                    class="input-container"
+                >
+
 
                     <textarea
                         id="pergunta"
+                        name="pergunta"
                         placeholder="Envie uma mensagem..."
                         rows="1"
                     ></textarea>
 
-                    <button id="btnEnviar" type="submit">
+
+                    <button
+                        id="btnEnviar"
+                        type="submit"
+                    >
+
                         ↑
+
                     </button>
+
 
                 </form>
 
+
                 <p class="aviso">
-                    O Mini Assistente pode cometer erros. Verifique informações importantes.
+
+                    O Mini Assistente pode cometer erros.
+                    Verifique informações importantes.
+
                 </p>
+
 
             </div>
 
+
         </main>
+
 
     </div>
 
 
+    <!-- =========================
+    MARKED
+    ========================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
+
+    <!-- =========================
+    SCRIPT DO PROJETO
+    ========================= -->
+
     <script src="script.js"></script>
+
 
 </body>
 
