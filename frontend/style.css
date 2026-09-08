@@ -1001,4 +1001,9 @@ LOGIN / CADASTRO
 
 .btn-sair:hover {
     background: #f0f0f0;
+}.dica-senha {
+    color: #777777;
+    font-size: 0.75em;
+    text-align: left;
+    margin-top: -6px;
 }

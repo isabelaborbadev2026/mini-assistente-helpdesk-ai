@@ -7,6 +7,20 @@ const autenticar = require('../middleware/authMiddleware');
 
 const usuariosPath = path.join(__dirname, '../data/usuarios.json');
 
+// =========================
+// VALIDAR FORÇA DA SENHA
+// =========================
+
+function senhaEhForte(senha) {
+  return (
+    senha.length >= 8 &&
+    /[A-Z]/.test(senha) &&
+    /[a-z]/.test(senha) &&
+    /[0-9]/.test(senha) &&
+    /[!@#$%^&*(),.?":{}|<>]/.test(senha)
+  );
+}
+
 router.post('/login', async (req, res) => {
   const { email, senha } = req.body;
 
@@ -37,6 +51,12 @@ router.post('/registrar', async (req, res) => {
     return res.status(400).json({ erro: 'Email e senha são obrigatórios' });
   }
 
+  if (!senhaEhForte(senha)) {
+    return res.status(400).json({
+      erro: 'A senha precisa ter no mínimo 8 caracteres, incluindo letra maiúscula, minúscula, número e caractere especial'
+    });
+  }
+
   const usuarios = JSON.parse(fs.readFileSync(usuariosPath, 'utf-8'));
 
   const usuarioExistente = usuarios.find(u => u.email === email);
@@ -64,6 +84,12 @@ router.post('/trocar-senha', autenticar, async (req, res) => {
 
   if (!senhaAtual || !novaSenha) {
     return res.status(400).json({ erro: 'Senha atual e nova senha são obrigatórias' });
+  }
+
+  if (!senhaEhForte(novaSenha)) {
+    return res.status(400).json({
+      erro: 'A nova senha precisa ter no mínimo 8 caracteres, incluindo letra maiúscula, minúscula, número e caractere especial'
+    });
   }
 
   const usuarios = JSON.parse(fs.readFileSync(usuariosPath, 'utf-8'));

@@ -232,5 +232,35 @@
         "pergunta": "oque e bala",
         "resposta": "**Bala** pode ter diferentes sentidos dependendo do contexto:\n\n| Contexto | Significado |\n|----------|--------------|\n| **Culinária** | Um doce pequeno, geralmente em forma de esfera, de goma ou de açúcar, que pode ter sabor de frutas, chocolate ou outros ingredientes. É popular em festas e como lembrancinha. |\n| **Arma de fogo** | A partícula projetada por uma arma de fogo. Em português, “bala” é a palavra comum para a munição que fica na cartucho. |\n| **Gíria/Expressões** | Em alguns dialetos, “bala” pode ser usado para indicar algo de qualidade, algo “bacana”, ou pode aparecer em expressões como “bala de chocolate” (doce). |\n\n### Exemplos de uso\n- **Culinário:** *“Vou comprar balas de goma para a festa.”*  \n- **Arma de fogo:** *“O atirador disparou duas balas.”*  \n\nAssim, quando alguém perguntar “O que é bala?”, a resposta adequada dependerá do tema que estão abordando.",
         "criadoEm": "2026-08-23T23:18:53.108Z"
+    },
+    {
+        "id": 40,
+        "pergunta": "me mande um codigo html como exemplo",
+        "resposta": "Aqui está um exemplo simples de um arquivo **HTML** que cria uma página básica com título, cabeçalho, parágrafo e uma lista:\n\n```html\n<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Página de Exemplo</title>\n    <style>\n        body { font-family: Arial, sans-serif; margin: 2rem; }\n        header { margin-bottom: 1rem; }\n        ul { list-style-type: disc; margin-left: 1.5rem; }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>Bem-vindo à minha página!</h1>\n    </header>\n\n    <main>\n        <p>Este é um exemplo simples de código HTML. Ele mostra a estrutura básica de um documento e como incluir estilos internos.</p>\n\n        <h2>Lista de itens</h2>\n        <ul>\n            <li>Primeiro item</li>\n            <li>Segundo item</li>\n            <li>Terceiro item</li>\n        </ul>\n    </main>\n</body>\n</html>\n```\n\n**O que esse código faz:**\n\n1. Declara o tipo de documento (`<!DOCTYPE html>`).  \n2. Define a linguagem da página (`lang=\"pt-BR\"`).  \n3. Configura o título que aparece na aba do navegador.  \n4. Inclui estilos CSS internos para deixar a página mais apresentável.  \n5. Estrutura a página em blocos: `header`, `main`, `footer` (opcional).  \n\nCopie e cole esse trecho em um arquivo com extensão `.html` e abra no navegador para ver o resultado.",
+        "criadoEm": "2026-08-25T22:38:58.817Z"
+    },
+    {
+        "id": 41,
+        "pergunta": "oi?",
+        "resposta": "Oi! Como posso ajudar você hoje?",
+        "criadoEm": "2026-08-27T00:47:01.607Z"
+    },
+    {
+        "id": 42,
+        "pergunta": "oi?",
+        "resposta": "Olá! Como posso ajudar você hoje?",
+        "criadoEm": "2026-08-27T00:47:38.965Z"
+    },
+    {
+        "id": 43,
+        "pergunta": "me mande um codigo html como exemplo",
+        "resposta": "Aqui está um exemplo simples de um documento HTML completo. Ele inclui título, cabeçalho, parágrafo, lista e um link.\n\n```html\n<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Exemplo de Página HTML</title>\n    <style>\n        body { font-family: Arial, sans-serif; margin: 2rem; }\n        h1 { color: #2c3e50; }\n        ul { list-style-type: disc; }\n    </style>\n</head>\n<body>\n    <h1>Bem-vindo ao exemplo!</h1>\n    <p>Este é um parágrafo de demonstração que mostra como estruturar um documento HTML básico.</p>\n\n    <h2>Lista de itens</h2>\n    <ul>\n        <li>Primeiro item</li>\n        <li>Segundo item</li>\n        <li>Terceiro item</li>\n    </ul>\n\n    <p>Para saber mais, visite o <a href=\"https://developer.mozilla.org\" target=\"_blank\">MDN Web Docs</a>.</p>\n</body>\n</html>\n```",
+        "criadoEm": "2026-08-27T00:50:18.993Z"
+    },
+    {
+        "id": 44,
+        "pergunta": "oi",
+        "resposta": "Olá! Como posso ajudar você hoje?",
+        "criadoEm": "2026-09-01T00:09:43.455Z"
     }
 ]

@@ -8,5 +8,10 @@
     "id": 2,
     "email": "teste@teste.com",
     "senha": "$2b$10$gYUOilnW45QMlpGDhvsSVuNsgONSmnkm8EsUt6Kp.9mNGBtveSkuK"
+  },
+  {
+    "id": 3,
+    "email": "marcosssss1991@gmail.com",
+    "senha": "$2b$10$8jrCG1Z1.qu4EK5jxX1Vp.F4Z73lEBTDN.cAFnx/iwBWJ//V0r3gy"
   }
 ]
